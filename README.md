@@ -8,3 +8,4 @@ This is for learning purposes only.
 * socket.io-client
 * express
 * Jade
+* postgreSQL

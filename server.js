@@ -2,12 +2,19 @@
 
 const express = require('express');
 const app = express();
+const pg = require('pg').native;
 //socket io has to connect to native http module.
 const server = require('http').createServer(app);
 //pass the server to socket.io
 const ws = require('socket.io')(server);
 
 const PORT = process.env.PORT || 3000;
+
+//database url
+const POSTGRES_URL = process.env.POSTGRES_URL || 'postgres://localhost:5432/nodechat';
+
+//singleton that I can pass around and share.
+const db = new pg.Client(POSTGRES_URL);
 
 app.set('view engine', 'jade');
 
@@ -18,9 +25,26 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-server.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}`);
+//routes only job is to send this query.
+app.get('/chats', (req, res) => {
+  db.query('SELECT * FROM chats', (err, result) => {
+    if (err) throw err;
+
+    res.send(result.rows);
+  });
+
 });
+
+//connecting to database and wrapping listeting port.
+db.connect((err) => {
+  if (err) throw err;
+
+  server.listen(PORT, () => {
+    console.log(`Server listening on port: ${PORT}`);
+  });
+
+});
+
 
 //running websockets.
 ws.on('connection', socket => {
