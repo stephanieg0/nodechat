@@ -1,0 +1,24 @@
+{
+  "name": "nodechat",
+  "description": "server side exercise with socket.io",
+  "main": "server.js",
+  "authors": [
+    "Stephanie Goldstein <stephanie.miranda.valdez@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/stephanieg0/nodechat",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "socket.io-client": "^1.4.5"
+  }
+}
