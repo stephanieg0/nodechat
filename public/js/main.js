@@ -8,9 +8,9 @@
     console.log('socket connected');
   });
   //listeting on second event coming from server side.
-  ws.on('receiveChat', msg => {
-    console.log(msg);
-    displayChat(msg);
+  ws.on('receiveChat', msgs => {
+    //recieving an array of objects.
+    msgs.forEach(displayChat);
   });
 
   const form = document.querySelector('form');
@@ -37,17 +37,23 @@
   });
 
   //Appending to the dom and passing elements.
-    function displayChat (chat) {
-    const li = generateLI(chat.name, chat.text);
+  function displayChat (chat) {
+    if (!document.querySelector(`[data-id="${chat._id}"]`)) {
+      const li = generateLI(chat);
 
-    ul.appendChild(li);
+      ul.appendChild(li);
+    }
   };
 
   //appending name and text in memmory for websockets to listen.
-  function generateLI (name, text) {
+  function generateLI (chat) {
     const li = document.createElement('li');
-    const textNode = document.createTextNode(`${name}: ${text}`);
+    const textNode = document.createTextNode(`${chat.name}: ${chat.text}`);
+    const dataId = document.createAttribute('data-id');
 
+    dataId.value = chat._id
+
+    li.setAttributeNode(dataId);
     li.appendChild(textNode);
     return li;
   };
@@ -64,10 +70,11 @@
     request.send();
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    getJSON('/chats', chats => {
-      chats.forEach(chat => displayChat);
-    });
-  });
+  //document.addEventListener('DOMContentLoaded', () => {
+    //getJSON('/chats', chats => {
+      ////passing the function that has the db object
+      //chats.forEach(displayChat);
+    //});
+  //});
 
 })();

@@ -50,14 +50,25 @@ db.connect((err) => {
 ws.on('connection', socket => {
   console.log('socket connected');
 
+  db.query('SELECT * FROM chats', (err, result) => {
+    if (err) throw err;
+
+  socket.emit('receiveChat', result.rows);
+  });
+
+
   //listeting to an individual socket sent by client side.
   socket.on('sendChat', msg => {
-    console.log(msg);
     //emitting a second event.
     //ws.emit('receiveChat', msg);
 
-    //emittin the event to everyone exept this socket so chat does not appear twice.
-    socket.broadcast.emit('receiveChat', msg);
+    //database insert before broadcasting the event.
+    db.query(`INSERT INTO chats (name, text) VALUES ('${msg.name}', '${msg.text}')`, (err) => {
+      if (err) throw err;
+
+      //emittin the event to everyone exept this socket so chat does not appear twice.
+      socket.broadcast.emit('receiveChat', [msg]);//senging an array.
+    });
   });
 });
 
