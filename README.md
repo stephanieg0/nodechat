@@ -1,2 +1,10 @@
 # nodechat
-server side exercise with socket.io
+Node server and client side exercise with socket.io
+
+This is for learning purposes only.
+
+## Technologies
+* socket.io
+* socket.io-client
+* express
+* Jade
