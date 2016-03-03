@@ -1,0 +1,27 @@
+{
+  "name": "nodechat",
+  "version": "1.0.0",
+  "description": "server side exercise with socket.io",
+  "main": "server.js",
+  "scripts": {
+    "serve": "nodemon server.js",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephanieg0/nodechat.git"
+  },
+  "author": "Stephanie Goldstein <stephanie.miranda.valdez@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stephanieg0/nodechat/issues"
+  },
+  "homepage": "https://github.com/stephanieg0/nodechat#readme",
+  "devDependencies": {
+    "nodemon": "^1.9.1"
+  },
+  "dependencies": {
+    "socket.io": "^1.4.5"
+  }
+}
