@@ -24,6 +24,16 @@ server.listen(PORT, () => {
 
 //running websockets.
 ws.on('connection', socket => {
-  console.log('connection', socket);
+  console.log('socket connected');
+
+  //listeting to an individual socket sent by client side.
+  socket.on('sendChat', msg => {
+    console.log(msg);
+    //emitting a second event.
+    //ws.emit('receiveChat', msg);
+
+    //emittin the event to everyone exept this socket so chat does not appear twice.
+    socket.broadcast.emit('receiveChat', msg);
+  });
 });
 
