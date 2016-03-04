@@ -9,3 +9,5 @@ This is for learning purposes only.
 * express
 * Jade
 * postgreSQL
+
+[check it out]: https://node-chat-spot.herokuapp.com/
