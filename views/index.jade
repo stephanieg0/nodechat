@@ -1,8 +1,9 @@
-h1 hello
+h1 Welcome to nodechat!
+h3 This is a mean stack app exercise using web sockets and postgreSQL.
 
 form
-  input(type='text', name='name', placeholder='Bobby')
-  input(type='text', name='text', placeholder='Howdy!')
+  input(type='text', name='name', placeholder='Bobby' required maxlength='10')
+  input(type='text', name='text', placeholder='Howdy!' required maxlength='50')
   input(type='submit')
 
 ul
