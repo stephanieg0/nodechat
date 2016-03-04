@@ -10,4 +10,4 @@ This is for learning purposes only.
 * Jade
 * postgreSQL
 
-[check it out]: https://node-chat-spot.herokuapp.com/
+[https://node-chat-spot.herokuapp.com/]
