@@ -53,7 +53,8 @@ ws.on('connection', socket => {
   db.query('SELECT * FROM chats', (err, result) => {
     if (err) throw err;
 
-  socket.emit('receiveChat', result.rows);
+  socket.emit('receiveChat', result.rows);//emits to one socket
+  //ws.emit emits to all sockets.
   });
 
 
@@ -63,11 +64,12 @@ ws.on('connection', socket => {
     //ws.emit('receiveChat', msg);
 
     //database insert before broadcasting the event.
-    db.query(`INSERT INTO chats (name, text) VALUES ('${msg.name}', '${msg.text}')`, (err) => {
-      if (err) throw err;
+    db.query(`INSERT INTO chats (name, text)
+      VALUES ($1, $2)`, [msg.name, msg.text], (err) => {
+        if (err) throw err;
 
-      //emittin the event to everyone exept this socket so chat does not appear twice.
-      socket.broadcast.emit('receiveChat', [msg]);//senging an array.
+        //emittin the event to everyone exept this socket so chat does not appear twice.
+        socket.broadcast.emit('receiveChat', [msg]);//senging an array.
     });
   });
 });
